@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>(o)(o)</title>
+
+<!-- 
+		angularjs
+	-->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+
+<!--
+		bootstrap 
+	 -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+	integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
+	integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r"
+	crossorigin="anonymous">
+	
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+	integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+	crossorigin="anonymous">
+</script>
+
+
+<!--
+		moja angular aplikacia 
+	 -->
+<script src="app.js"></script>
+</head>
+
+<body ng-app="myApp">
+
+	<div ng-controller="ReceptyController">
+		<div class="container">
+			<h1>Recepty client</h1>
+			
+			
+			<div class="panel panel-default">
+				<div class="panel-body">
+				search: <input type="text" name="search" ng-model="search" />
+				</div>
+			</div>
+			
+			
+			<div class="panel panel-default">
+				<div class="panel-body">
+					fulltext search: <input type="text" name="search" ng-model="fulltextSearch" />
+					<button type="button" ng-click="onSearchClick(fulltextSearch)"><span class="glyphicon glyphicon-search"></span></button>
+					<button type="button" ng-click="onSearchRemove()"><span class="glyphicon glyphicon-remove"></span></button>
+					<button type="button" ng-click="onAsterixClick(fulltextSearch)"><span class="glyphicon glyphicon-asterisk"></span></button>
+				</div>
+			</div>
+			
+			<!--
+				zoznam receptov 
+			-->
+			<ul>
+				<li ng-repeat="r in recepty | filter:search">
+					<a ng-click="onReceptyClick(r)">{{r.nazov}}</a>
+					<button type="button" class="btn-xs btn-danger" ng-click="onReceptDelete(r)"><span class="glyphicon glyphicon-remove"></span></button>
+				</li>
+			</ul>
+
+			<hr/>
+			<button type="button" class="btn btn-success" ng-click="onReceptAdd()">Add</button>
+			<hr/>
+			
+			<form ng-submit="onFormSubmit()">
+				<div class="form-group">
+					<label for="exampleInputEmail1">Nazov</label>
+					<input type="text" class="form-control" id="nazov" ng-model="current.nazov">
+				</div>
+				
+				<div class="form-group">
+					<label for="autor">Autor</label>
+					<input type="text" class="form-control" id="autor"  ng-model="current.autor">
+				</div>
+				
+				<div class="form-group">
+					<label for="priprava">Priprava</label>
+					<input type="text" class="form-control" id="priprava" ng-model="current.postupPripravy">
+				</div>
+				
+				<h3>Ingrediencie:</h3>
+				
+				<table class="table table-condensed">
+				
+					<tr ng-repeat="i in current.zoznamIngrediencii">
+						<td>nazov</td><td><input type="text" class="form-control" ng-model="i.nazov"></td>
+						<td>pocet</td><td><input type="text" class="form-control" ng-model="i.pocet"></td>
+						<td>merna jednotka</td><td><input type="text" class="form-control" ng-model="i.mernaJednotka"></td>
+					</tr>
+					
+				</table>
+				
+				<br/>
+				
+				<button type="button" class="btn btn-info" ng-click="onIngrediencieAdd()">Pridat ingredienciu</button>
+				
+				<button type="submit" class="btn btn-warning">Save</button>
+			</form>
+		</div>
+	</div>
+
+</body>
+
+</html>

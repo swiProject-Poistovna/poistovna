@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>(o)(o)</title>
+
+<!-- 
+		angularjs
+	-->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+
+<!--
+		bootstrap 
+	 -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+	integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+	crossorigin="anonymous">
+	
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
+	integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r"
+	crossorigin="anonymous">
+	
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+	integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+	crossorigin="anonymous">
+</script>
+
+
+<!--
+		moja angular aplikacia 
+	 -->
+<script src="app.js"></script>
+</head>
+
+<body ng-app="myApp">
+
+	<a ng-href="/"><button class="btn-danger">home</button></a>
+
+
+	<div class="container" ng-controller="NovyProductController">
+	
+		<h1>Nový produkt</h1>
+		
+		<form ng-submit="onFormSubmit()">
+		
+			<div class="form-group">
+				<label for="poistnovna">Poisťovňa</label>
+				<select  class="form-control"
+					ng-model="current.idPoistovna"
+					ng-options="p.id as p.nazov for p in poistovne | orderBy: 'nazov'"
+					required="required"					
+				>
+					 <option value="" selected="selected">Vyber poisťovňu...</option>
+				</select>				
+			</div>
+			
+			<div class="form-group">
+				<label for="typyProduktov">Typ produktu</label>
+				<select  class="form-control"
+					ng-model="current.idTypProduktu"
+					ng-options="p.id as p.nazov for p in typyProduktov | orderBy: 'nazov'"
+					required="required"					
+				>
+					 <option value="" selected="selected">Vyber typ produktu...</option>
+				</select>				
+			</div>
+			
+			<div class="form-group">
+				<label for="typyProduktov">Riziková skupina</label>
+				<select  class="form-control" ng-model="current.rizikovaSkupina" ng-init="current.rizikovaSkupina='1'" required="required">
+					<option value="1">1</option>
+					<option value="2">2</option>
+				</select>				
+			</div>
+			
+			<div class="form-group">
+				<label for="minVek">Min vek</label>
+				<input type="number" class="form-control" id="minVek" ng-model="current.minVek" required="required"
+					min="1" max="100" placeholder="1..100">				
+			</div>
+			
+			<div class="form-group">
+				<label for="maxVek">Max vek</label>
+				<input type="number" class="form-control" id="maxVek" ng-model="current.maxVek" required="required"
+					min="1" max="100" placeholder="1..100">				
+			</div>
+			
+			<div class="form-group">
+				<label for="dobaPoisteniaOd">Doba poistenia od</label>
+				<input type="number" class="form-control" id="dobaPoisteniaOd" ng-model="current.dobaPoisteniaOd"
+					placeholder="minimálna dĺžka trvania poistnej zmluvy" required="required"
+					min="1" max="70"
+				>				
+			</div>
+			
+			<div class="form-group">
+				<label for="dobaPoisteniaDo">Doba poistenia do</label>
+				<input type="number" class="form-control" id="dobaPoisteniaDo" ng-model="current.dobaPoisteniaDo"
+					placeholder="maximálna dĺžka trvania poistnej zmluvy" required="required"
+					min="1" max="70"
+				>				
+			</div>
+			
+			<div class="form-group">
+				<label for="fileupload">Koeficienty</label>
+				<input type="file" name="fileupload" value="fileupload" id="fileupload"  class="form-control">
+			</div>
+
+			<button type="submit" class="btn btn-warning">Send</button>
+							
+		</form>
+		
+	</div>
+
+
+
+</body>
+
+</html>
