@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>(o)(o)</title>
+
+<!-- 
+		angularjs
+	-->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+
+<!--
+		bootstrap 
+	 -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+	integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+	crossorigin="anonymous">
+	
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
+	integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r"
+	crossorigin="anonymous">
+	
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+	integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+	crossorigin="anonymous">
+</script>
+
+
+<!--
+		moja angular aplikacia 
+	 -->
+<script src="app.js"></script>
+</head>
+
+<body ng-app="myApp">
+
+	<a ng-href="/"><button class="btn-danger">home</button></a>
+
+	<div ng-controller="PoistovneController">
+		<div class="container">
+			<h2>Poisťovne client</h1>
+			
+			<form ng-submit="onFormSubmit()">
+			
+				<div class="form-group">
+					<label for="vek">Vek</label>
+					<input type="number" class="form-control" id="vek" ng-model="current.vek"
+						min="1" max="100" required="required" placeholder="1..100">				
+				</div>
+				
+				<div class="form-group">
+					<label for="rizikovaSkupina">Rizikova skupina</label>
+					<select class="form-control" id="rizikovaSkupina" ng-model="current.rizikovaSkupina" required="required"
+						ng-init="current.rizikovaSkupina='1'">
+						<option value="1">1</option>					
+						<option value="2">2</option>
+<!-- 					<option style="display:none" value="">select a type</option>  -->						
+					</select>
+				</div>
+				
+				<div class="form-group">
+					<label for="nazovTypuProduktu">Typ produktu</label>
+					
+					<select class="form-control" id="typProduktu" ng-model="current.idTypuProduktu"
+						ng-options="item.id as item.nazov for item in typyProduktov | orderBy: 'nazov'"
+						required="required"
+					>
+						 <option value="" selected="selected">Vyber typ produktu...</option>
+					</select>
+					
+				</div>
+				
+				<div class="form-group">
+					<label for="dobaPoistenia">Doba</label>
+					<input type="number" class="form-control" id="dobaPoistenia" ng-model="current.dobaPoistenia" 
+						placeholder="1..70" required="required" min="1" max="70">				
+				</div>
+				
+				<div class="form-group">
+					<label for="cielovaSumaPoistenia">Suma</label>
+					<select class="form-control" id="cielovaSumaPoistenia" ng-model="current.cielovaSumaPoistenia"
+						ng-init="current.cielovaSumaPoistenia='10000'" required="required">
+						
+						<option value="10000">10 000</option>
+						<option value="20000">20 000</option>
+						<option value="30000">30 000</option>
+						<option value="40000">40 000</option>
+						<option value="50000">50 000</option>
+						<option value="60000">60 000</option>
+						<option value="70000">70 000</option>
+						<option value="80000">80 000</option>
+						<option value="90000">90 000</option>
+						<option value="100000">100 000</option>
+					</select>
+				</div>
+				
+				<button type="submit" class="btn btn-warning">Send</button>
+				
+				<div>
+
+<!-- 					
+					<p style="margin-top: 20mm; font-size: 14pt; font-weight: bold;">Vyhovujúce poisťovne:</p>
+-->					
+					<h3 style="margin-top: 20mm">Vyhovujúce poisťovne:</h3>
+				
+					<table class="table">
+						<thead>
+						<tr>
+							<th>P.č.</th>
+							<th>Poisťovňa</th>
+							<th style="text-align: center">Suma(mesačná platba)</th>
+						</tr>
+						</thead>
+						<tbody>
+					  <tr ng-repeat="p in poistovne track by $index">
+						<td ng-if="$odd" style="background-color:#f1f1f1">{{ $index + 1 }}</td>
+						<td ng-if="$even">{{ $index + 1 }}.</td>
+					    <td ng-if="$odd" style="background-color:#f1f1f1">{{ p.nazovPoistovne }}</td>
+					    <td ng-if="$even">{{ p.nazovPoistovne }}</td>
+					    <td align="center" ng-if="$odd" style="background-color:#f1f1f1">{{ p.vyslednaMesacnaPlatba }}</td>
+					    <td align="center" ng-if="$even">{{ p.vyslednaMesacnaPlatba }}</td>
+					  </tr>
+					  </tbody>
+					</table>			
+				</div>
+				
+			</form>
+
+
+</body>
+
+</html>
