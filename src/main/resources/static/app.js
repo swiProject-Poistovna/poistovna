@@ -77,7 +77,7 @@ angular.module('myApp', [])
 			
 			function ok(response) {
 				
-				$scope.typyProduktov = response.data
+				$scope.current.typyProduktov = response.data
 				
 			},
 			
@@ -135,7 +135,8 @@ angular.module('myApp', [])
 				}, 
 				function ko(response) {
 
-
+					$scope.poistovne = [];
+					alert(response.data.message);
 					$log.error(response);
 					
 				}
