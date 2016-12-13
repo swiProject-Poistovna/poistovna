@@ -145,4 +145,85 @@ angular.module('myApp', [])
 	};
 
 	
+}])
+
+
+.controller('LoginController', ['$log', '$http', '$scope', function($log, $http, $scope) {
+	
+	//$scope.poistovne = [{"id":1, "nazov":"poistovna 1"}, {"id":2, "nazov":"poistovna 2"}];
+	
+	$http({
+		method: 'GET',
+		url: 'login'
+	}).then(
+			
+			function ok(response) {
+				
+				$scope.current.typyProduktov = response.data
+				
+			},
+			
+			function ko(response) {
+				
+			}
+			
+	);
+		
+	
+//	var data = {
+//			"vek": 15,
+//			"rizikovaSkupina": 1,
+//			"nazovTypuProduktu": "Hospitalizacia",
+//			"dobaPoistenia": 30,
+//			"cielovaSumaPoistenia": 20000
+//		};
+//
+//	
+//	$http({
+//		method : 'POST',
+//		url : 'http://localhost:8080/vyhovujucePoistovne',
+//		data: data
+//	})
+//	.then(
+//			function ok(response) {
+//
+//				$log.debug(response.data);
+//				
+//				$scope.poistovne = response.data;
+//								
+//			}, 
+//			function ko(response) {
+//
+//				alert(response);
+//
+//			}
+//	);
+	
+	
+	$scope.onFormSubmit = function() {
+		
+		$http({
+			method : 'POST',
+			url : 'loginCheck',
+			data: $scope.current
+		})
+		.then(
+				function ok(response) {
+					
+					$log.debug(response.data);
+					
+					window.location = '/novy-produkt.html'
+					
+				}, 
+				function ko(response) {
+					
+					alert(response.data.message);
+					$log.error(response);
+					
+				}
+		);
+		
+	};
+
+	
 }]);

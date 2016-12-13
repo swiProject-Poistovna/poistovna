@@ -13,7 +13,7 @@ public class PoistovneNotFoundException extends RuntimeException {
 
 	public PoistovneNotFoundException() {
 
-		super("V DB sa nenachadza ziadna vyhovujuca poistovna!");
+		super("V DB sa nenachádza žiadna vyhovujúca poisťovňa!");
 
 	}
 

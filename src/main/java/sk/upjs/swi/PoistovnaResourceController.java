@@ -38,6 +38,9 @@ public class PoistovnaResourceController {
 	@Autowired
 	private PoistovnaRepository poistovnaRepository;
 
+	@Autowired
+	private UsersRepository usersRepository;
+
 	// netreba zabudat na konkurentne programovanie, lebo klasicky ArrayList by
 	// nam to rozbil
 	private List<Poistovna> poistovneList = new CopyOnWriteArrayList<Poistovna>();
@@ -252,4 +255,47 @@ public class PoistovnaResourceController {
 		return this.poistovnaDataOutList;
 	}
 
+	@RequestMapping(value = "/loginCheck", method = RequestMethod.POST)
+	@ResponseStatus(HttpStatus.OK)
+	public void overLoginAHeslo(@RequestBody Users inputData) {
+		
+		boolean loginAHesloOK = poistovneDBService.overLoginAHeslo(inputData);
+		if (!loginAHesloOK) {
+			throw new LoginFailedException();
+		}
+		
+	}
+
+	@RequestMapping(value = "/pridajUsera", method = RequestMethod.POST)
+	@ResponseStatus(HttpStatus.CREATED)
+	public void pridajProdukt(@RequestBody Users user) {
+		
+		System.out.println(user);
+		
+		Users userUlozeny = null;
+		try {
+			userUlozeny = usersRepository.save(user);
+		} catch (Exception e) {
+			if (userUlozeny == null) {
+				throw new DuplicitaUserovException();
+			}
+		}
+		
+	}
+
+	
+	@RequestMapping("/usersHAHA")
+	public List<Users> dajVsetkychUsersHAHA() {
+
+		List<Users> usersList = new ArrayList<>();
+		
+		Iterable<Users> usersIterable = usersRepository.findAll();
+		for (Users user : usersIterable) {
+			usersList.add(user);
+		}
+		
+		return usersList;
+	}
+	
+	
 }

@@ -693,5 +693,26 @@ public class PoistovneDBService {
 	    bd = bd.setScale(places, RoundingMode.HALF_UP);
 	    return bd.doubleValue();
 	}
+	
+	public boolean overLoginAHeslo(Users inputData) {
+		
+//		String sql = "SELECT * FROM Users WHERE id = 4";
+		String sql = "SELECT * FROM Users WHERE login LIKE ? AND heslo LIKE ?";
+		List<Users> usersList = jdbcTemplate.query(sql,
+				new Object[]{ new String(inputData.getLogin()), new String(inputData.getHeslo()) },
+				new BeanPropertyRowMapper<Users>(Users.class));
+
+//		TypProduktu typProduktu = jdbcTemplate.queryForObject(sql,
+//				new Object[]{new Integer(idTypuProduktu)},
+//				new BeanPropertyRowMapper<TypProduktu>(TypProduktu.class));
+		
+//		return typProduktu;
+		
+		
+		if (usersList != null && usersList.size() > 0) 
+			return true;
+		
+		return false;
+	}
 
 }
