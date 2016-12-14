@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>(o)(o)</title>
+
+<!-- 
+		angularjs
+	-->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+
+<!--
+		bootstrap 
+	 -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+	integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+	crossorigin="anonymous">
+	
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
+	integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r"
+	crossorigin="anonymous">
+	
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+	integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+	crossorigin="anonymous">
+</script>
+
+
+<!--
+		moja angular aplikacia 
+	 -->
+<script src="app.js"></script>
+
+</head>
+
+<body ng-app="myApp">
+
+	<a ng-href="/"><button class="btn-danger">home</button></a>
+
+	<div ng-controller="LoginController">
+	
+		<div class="container">
+		
+			<div class="panel panel-default">
+		
+			<div class="panel-body">
+			
+				<h2>PRIHLÁSENIE</h2>
+				
+	
+	
+				<form ng-submit="onFormSubmit()">
+	
+					<div style="margin-top:3mm">
+						<div class="form-group">
+							<label for="login">login</label>
+							<input type="text" class="form-control" id="login" ng-model="current.login"
+								required="required" placeholder="zadajte login">				
+			
+							<label for="heslo">heslo</label>
+							<input type="password" class="form-control" id="heslo" ng-model="current.heslo"
+								required="required" placeholder="zadajte heslo">				
+						</div>
+						
+						<button type="submit" class="btn btn-warning">Overiť login a heslo</button>
+						
+						<a ng-href="novy-produkt.html"><button style="display:none" type="button" class="btn btn-primary btn-lg">Zamestnanec poisťovne</button></a>
+						
+					</div>		
+				
+				</form>		
+			
+			</div>
+			
+			</div>
+		
+		</div>
+
+	</div>
+	
+</body>
+
+</html>
